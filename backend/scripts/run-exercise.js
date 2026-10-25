@@ -1,24 +1,49 @@
 'use strict';
 
-const BASE = 'http://localhost:3000/api/v1';
+const http = require('http');
 
-async function request(endpoint, options = {}) {
-  const url = `${BASE}${endpoint}`;
-  const res = await fetch(url, {
-    headers: {
+function request(endpoint, options = {}) {
+  return new Promise((resolve, reject) => {
+    const bodyStr = options.body ? options.body : '';
+    const bodyBuffer = Buffer.from(bodyStr, 'utf8');
+
+    const headers = {
       'Content-Type': 'application/json',
+      'Content-Length': bodyBuffer.length,
       ...(options.headers || {}),
-    },
-    ...options,
+    };
+
+    const reqOptions = {
+      method: options.method || 'GET',
+      hostname: '127.0.0.1',
+      port: 3000,
+      path: `/api/v1${endpoint}`,
+      headers: headers,
+    };
+
+    const req = http.request(reqOptions, (res) => {
+      let data = '';
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        let body = null;
+        try {
+          body = data ? JSON.parse(data) : null;
+        } catch (_) {
+          body = data;
+        }
+        resolve({ status: res.statusCode, body });
+      });
+    });
+
+    req.on('error', (err) => reject(err));
+
+    if (bodyBuffer.length > 0) {
+      req.write(bodyBuffer);
+    }
+    req.end();
   });
-  let body = null;
-  const text = await res.text();
-  try {
-    body = text ? JSON.parse(text) : null;
-  } catch {
-    body = text;
-  }
-  return { status: res.status, body };
 }
 
 async function runExercise() {
@@ -159,4 +184,9 @@ async function runExercise() {
   console.log('================================================================');
 }
 
-runExercise().catch(console.error);
+runExercise().catch((err) => {
+  console.error('\n[Error ejecutando el ejercicio]:', err.message);
+  if (err.code === 'ECONNREFUSED') {
+    console.error('-> Asegúrate de que el servidor backend esté corriendo en http://localhost:3000 (npm run dev).');
+  }
+});
