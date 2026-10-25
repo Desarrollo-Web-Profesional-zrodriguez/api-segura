@@ -104,7 +104,11 @@ node backend/scripts/run-exercise.js
 > Aquí puedes insertar las capturas de pantalla tomadas de la terminal al correr los comandos.
 
 ### 1. Captura de la Ejecución de la Actividad Práctica (Tasks 1 a 4)
-*Terminal ejecutando `node backend/scripts/run-exercise.js`:*
+
+![Captura Terminal Ejercicio 19a](screenshots/ejercicio_19a.png)
+
+<details>
+<summary><b>Ver salida completa de consola en texto</b></summary>
 
 ```text
 ================================================================
@@ -112,7 +116,7 @@ node backend/scripts/run-exercise.js
 ================================================================
 
 [SETUP] Registering local test user...
-  POST /auth/register -> email: student-89800@example.test
+  POST /auth/register -> email: student-99143@example.test
   Response Status: 201 (Expected: 201)
   Access token & Refresh token captured successfully.
 
@@ -169,52 +173,44 @@ TASK 4 — Logout-all (Revoke All Active Sessions)
 | Refresh after logout-all              | 401      | 401    | PASS  |
 ================================================================
 ```
-
-*(Inserta aquí tu imagen de captura si lo requiere la entrega:)*  
-`![Captura Terminal Ejercicio 19a](screenshots/ejercicio_19a.png)`
+</details>
 
 ---
 
 ### 2. Captura de Pruebas Automatizadas de Backend (Jest)
-*Terminal ejecutando `npm test` en `backend`:*
+
+![Captura Tests Jest](screenshots/backend_tests.png)
+
+<details>
+<summary><b>Ver salida de pruebas de backend en texto</b></summary>
 
 ```text
-PASS tests/auth.test.js
-  refresh-token lifecycle
-    √ rotation returns a different refresh token (228 ms)
-    √ reuse of an old token revokes the newer token family token (302 ms)
-    √ logout makes the refresh token unusable (281 ms)
-
+PASS tests/validation.test.js
+PASS tests/task-ownership.test.js
 PASS tests/health.test.js
-  health endpoint
-    √ returns a healthy status (28 ms)
+PASS tests/auth.test.js
 
-Test Suites: 2 passed, 2 total
-Tests:       4 passed, 4 total
+Test Suites: 4 passed, 4 total
+Tests:       15 passed, 15 total
 Snapshots:   0 total
-Time:        14.883 s
+Time:        3.233 s
+Ran all test suites.
 ```
-
-*(Inserta aquí tu imagen de captura si lo requiere la entrega:)*  
-`![Captura Tests Jest](screenshots/backend_tests.png)`
+</details>
 
 ---
 
 ### 3. Captura de Pruebas Unitarias de Flutter
-*Terminal ejecutando `flutter test` en `mobile`:*
 
 ```text
-00:00 +0: loading C:/Users/artes/Proyectos/api-segura/mobile/test/api_client_test.dart
-00:00 +0: refreshes once on 401 and retries the original request once
-00:00 +1: All tests passed!
+00:00 +13: All tests passed!
 ```
-
-*(Inserta aquí tu imagen de captura si lo requiere la entrega:)*  
-`![Captura Tests Flutter](screenshots/flutter_tests.png)`
 
 ---
 
 ## 🔒 Checklist de Seguridad (Security Checklist)
+
+![Captura Checklist de Seguridad](screenshots/checklist_seguridad.png)
 
 Completado en base a los estándares de **OWASP API Security Top 10**:
 
