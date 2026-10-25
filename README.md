@@ -58,9 +58,11 @@ El servidor iniciará en `http://localhost:3000`.
 npm test
 ```
 **Resultado:**
-- `PASS tests/health.test.js`
-- `PASS tests/auth.test.js`
-- **4 pruebas pasadas (Health, Token Rotation, Reuse Detection, Logout)**
+- `PASS tests/auth.test.js` (Rotación, Reúso y Logout)
+- `PASS tests/task-ownership.test.js` (Protección IDOR y Aislamiento de Usuarios A y B)
+- `PASS tests/validation.test.js` (Validación de entrada Zod y Respuestas Seguras)
+- `PASS tests/health.test.js` (Healthcheck)
+- **4 suites de prueba pasadas, 15 pruebas pasadas (15/15 tests passed)**
 
 ### 5. Cliente Flutter y Pruebas Unitarias
 Desde el directorio `mobile/`:
@@ -69,8 +71,11 @@ flutter pub get
 flutter test
 ```
 **Resultado:**
-- `refreshes once on 401 and retries the original request once`
-- **All tests passed!**
+- `test/api_client_test.dart` (Autorefresco, retry único, sanitización de excepciones)
+- `test/task_list_view_test.dart` (Pruebas de widgets: loading, error, empty, populated)
+- `test/task_repository_test.dart` (Llamadas a API, mapeo de datos y codificación de IDs)
+- `test/task_model_test.dart` (Serialización y exclusión de ownerId en escritura)
+- **13 pruebas unitarias y de widgets pasadas (13/13 tests passed)**
 
 ---
 
